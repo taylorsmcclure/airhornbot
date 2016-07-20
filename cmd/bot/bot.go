@@ -181,7 +181,7 @@ var BIRTHDAY *SoundCollection = &SoundCollection{
 }
 
 // test stuff i added in
-var BIRTHDAY *SoundCollection = &SoundCollection{
+var TEST *SoundCollection = &SoundCollection{
 	Prefix: "doot",
 	Commands: []string{
 		"!doot",
