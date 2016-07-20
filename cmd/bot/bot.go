@@ -197,7 +197,7 @@ var COLLECTIONS []*SoundCollection = []*SoundCollection{
 	ETHAN,
 	COW,
 	BIRTHDAY,
-	TEST
+	TEST,
 }
 
 // Create a Sound struct
