@@ -12,8 +12,8 @@ Airhorn Bot has two components, a bot client that handles the playing of loyal a
 
 **First install the bot:**
 ```
-go get github.com/taylorsmcclure/cmd/bot
-go install github.com/taylorsmcclure/cmd/bot
+go get github.com/taylorsmcclure/airhornbot/cmd/bot
+go install github.com/taylorsmcclure/airhornbot/cmd/bot
 ```
  **Then run the following command:**
 
