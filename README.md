@@ -1,6 +1,6 @@
 # Airhorn Bot
 
-A fork of hammerandchisel's [airhorn](github.com/hammerandchisel/airhornbot) bot so I can add my own stupid audio files
+A fork of hammerandchisel's [airhorn](https://github.com/hammerandchisel/airhornbot) bot so I can add my own stupid audio files
 
 Airhorn is an example implementation of the [Discord API](https://discordapp.com/developers/docs/intro). Airhorn bot utilizes the [discordgo](https://github.com/bwmarrin/discordgo) library, a free and open source library. Airhorn Bot requires Go 1.4 or higher.
 
