@@ -736,6 +736,7 @@ func main() {
 	discord.AddHandler(onMessageCreate)
 	// adding to handle ping messages
 	discord.AddHandler(messageCreate)
+	log.Info("Sanity Check, loading ping handler")
 
 	err = discord.Open()
 	if err != nil {
@@ -750,7 +751,7 @@ func main() {
 
 
 	// TESTING MESSAGE handlers ping pong
-	func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
+	func messageCreate(s *discord, m *discord.MessageCreate) {
 
 		// Ignore all messages created by the bot itself
 		if m.Author.ID == BotID {
