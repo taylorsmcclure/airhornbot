@@ -206,6 +206,25 @@ var COLLECTIONS []*SoundCollection = []*SoundCollection{
 	DOOT,
 }
 
+// TESTING MESSAGE handlers ping pong
+func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
+
+	// Ignore all messages created by the bot itself
+	if m.Author.ID == BotID {
+		return
+	}
+
+	// If the message is "ping" reply with "Pong!"
+	if m.Content == "!pingchen" {
+		_, _ = s.ChannelMessageSend(m.ChannelID, "Pong!")
+	}
+
+	// If the message is "pong" reply with "Ping!"
+	if m.Content == "!pongchen" {
+		_, _ = s.ChannelMessageSend(m.ChannelID, "Ping!")
+	}
+}
+
 // Create a Sound struct
 func createSound(Name string, Weight int, PartDelay int) *Sound {
 	return &Sound{
