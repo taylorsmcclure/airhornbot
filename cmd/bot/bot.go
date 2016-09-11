@@ -596,6 +596,7 @@ func airhornBomb(cid string, guild *discordgo.Guild, user *discordgo.User, cs st
 
 // Handles bot operator messages, should be refactored (lmao)
 func handleBotControlMessages(s *discordgo.Session, m *discordgo.MessageCreate, parts []string, g *discordgo.Guild) {
+	var(err error)
 	if scontains(parts[1], "status") {
 		displayBotStats(m.ChannelID)
 	} else if scontains(parts[1], "stats") {
@@ -779,7 +780,7 @@ func main() {
 	discord.AddHandler(onGuildCreate)
 	discord.AddHandler(onMessageCreate)
 	// adding to handle ping messages
-	discord.AddHandler(messageCreate)
+	// discord.AddHandler(messageCreate)
 	log.Info("Sanity Check, loading ping handler")
 
 	err = discord.Open()
