@@ -609,6 +609,20 @@ func handleBotControlMessages(s *discordgo.Session, m *discordgo.MessageCreate, 
 		s.ChannelMessageSend(m.ChannelID, ":ok_hand: give me a sec m8")
 		go calculateAirhornsPerSecond(m.ChannelID)
 	}
+
+		// Ignore all messages created by the bot itself
+	if m.Author.ID == BotID {
+		return
+	}
+
+	// If the message is "ping" reply with "Pong!"
+	if m.Content == "!pingchen" {
+		_, _ = s.ChannelMessageSend(m.ChannelID, "Pong!")
+	}
+
+	// If the message is "pong" reply with "Ping!"
+	if m.Content == "!pongchen" {
+		_, _ = s.ChannelMessageSend(m.ChannelID, "Ping!")
 }
 
 func onMessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
@@ -748,26 +762,6 @@ func main() {
 
 	// We're running!
 	log.Info("AIRHORNBOT is ready to horn it up.")
-
-
-	// TESTING MESSAGE handlers ping pong
-	func messageCreate(s *discord, m *discord.MessageCreate) {
-
-		// Ignore all messages created by the bot itself
-		if m.Author.ID == BotID {
-			return
-		}
-
-		// If the message is "ping" reply with "Pong!"
-		if m.Content == "!pingchen" {
-			_, _ = s.ChannelMessageSend(m.ChannelID, "Pong!")
-		}
-
-		// If the message is "pong" reply with "Ping!"
-		if m.Content == "!pongchen" {
-			_, _ = s.ChannelMessageSend(m.ChannelID, "Ping!")
-		}
-	}
 
 	// Wait for a signal to quit
 	c := make(chan os.Signal, 1)
