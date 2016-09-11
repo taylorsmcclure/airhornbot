@@ -681,11 +681,6 @@ func onMessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 		}
 	}
 
-// Ignore all messages created by the bot itself
-if m.Author.ID == BotID {
-	return
-}
-
 if m.Content == "!chenhelp" {
 	var a []string
 			for _, i := range COLLECTIONS {
@@ -720,6 +715,11 @@ if m.Content == "!pingchen" {
 // If the message is "pong" reply with "Ping!"
 if m.Content == "!pongchen" {
 	_, _ = s.ChannelMessageSend(m.ChannelID, "Ping!")
+}
+
+// Ignore all messages created by the bot itself
+if m.Author.ID == BotID {
+	return
 }
 
 }
