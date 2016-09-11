@@ -206,6 +206,7 @@ var COLLECTIONS []*SoundCollection = []*SoundCollection{
 	DOOT,
 }
 
+
 // Create a Sound struct
 func createSound(Name string, Weight int, PartDelay int) *Sound {
 	return &Sound{
@@ -733,6 +734,9 @@ func main() {
 	discord.AddHandler(onReady)
 	discord.AddHandler(onGuildCreate)
 	discord.AddHandler(onMessageCreate)
+	// adding to handle ping messages
+	discord.AddHandler(messageCreate)
+	log.Info("Sanity Check, loading ping handler")
 
 	err = discord.Open()
 	if err != nil {
@@ -744,6 +748,26 @@ func main() {
 
 	// We're running!
 	log.Info("AIRHORNBOT is ready to horn it up.")
+
+
+	// TESTING MESSAGE handlers ping pong
+	func messageCreate(s *discord, m *discord.MessageCreate) {
+
+		// Ignore all messages created by the bot itself
+		if m.Author.ID == BotID {
+			return
+		}
+
+		// If the message is "ping" reply with "Pong!"
+		if m.Content == "!pingchen" {
+			_, _ = s.ChannelMessageSend(m.ChannelID, "Pong!")
+		}
+
+		// If the message is "pong" reply with "Ping!"
+		if m.Content == "!pongchen" {
+			_, _ = s.ChannelMessageSend(m.ChannelID, "Ping!")
+		}
+	}
 
 	// Wait for a signal to quit
 	c := make(chan os.Signal, 1)
