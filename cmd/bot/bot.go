@@ -624,6 +624,7 @@ func handleBotControlMessages(s *discordgo.Session, m *discordgo.MessageCreate, 
 	if m.Content == "!pongchen" {
 		_, _ = s.ChannelMessageSend(m.ChannelID, "Ping!")
 }
+}
 
 func onMessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 	if len(m.Content) <= 0 || (m.Content[0] != '!' && len(m.Mentions) < 1) {
