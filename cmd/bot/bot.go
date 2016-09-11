@@ -596,7 +596,6 @@ func airhornBomb(cid string, guild *discordgo.Guild, user *discordgo.User, cs st
 
 // Handles bot operator messages, should be refactored (lmao)
 func handleBotControlMessages(s *discordgo.Session, m *discordgo.MessageCreate, parts []string, g *discordgo.Guild) {
-	var(err error)
 	if scontains(parts[1], "status") {
 		displayBotStats(m.ChannelID)
 	} else if scontains(parts[1], "stats") {
@@ -613,50 +612,10 @@ func handleBotControlMessages(s *discordgo.Session, m *discordgo.MessageCreate, 
 		s.ChannelMessageSend(m.ChannelID, ":ok_hand: give me a sec m8")
 		go calculateAirhornsPerSecond(m.ChannelID)
 	}
-
-		// Ignore all messages created by the bot itself
-	if m.Author.ID == BotID {
-		return
-	}
-
-	if m.Content == "!chenhelp" {
-		var a []string
-				for _, i := range COLLECTIONS {
-					for _, j := range i.Commands {
-						a = append(a, j)
-							//for _, h := range i.Sounds {
-								//a = append(a, fmt.Sprint(h))
-							//}
-					}
-				}
-				_, _ = s.ChannelMessageSend(m.ChannelID, strings.Join(a, ", "))
-			}
-
-		if m.Content == "!chenrestart" {
-			// This kills the chen
-			err = discord.Close()
-			if err != nil {
-				log.WithFields(log.Fields{
-					"error": err,
-				}).Fatal("Failed to create discord websocket connection")
-				return
-			}
-
-			log.Info("Chen was restarted by command")
-		}
-
-	// If the message is "ping" reply with "Pong!"
-	if m.Content == "!pingchen" {
-		_, _ = s.ChannelMessageSend(m.ChannelID, "Pong!")
-	}
-
-	// If the message is "pong" reply with "Ping!"
-	if m.Content == "!pongchen" {
-		_, _ = s.ChannelMessageSend(m.ChannelID, "Ping!")
-}
 }
 
 func onMessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
+	var(err error)
 	if len(m.Content) <= 0 || (m.Content[0] != '!' && len(m.Mentions) < 1) {
 		return
 	}
@@ -721,6 +680,48 @@ func onMessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 			return
 		}
 	}
+
+// Ignore all messages created by the bot itself
+if m.Author.ID == BotID {
+	return
+}
+
+if m.Content == "!chenhelp" {
+	var a []string
+			for _, i := range COLLECTIONS {
+				for _, j := range i.Commands {
+					a = append(a, j)
+						//for _, h := range i.Sounds {
+							//a = append(a, fmt.Sprint(h))
+						//}
+				}
+			}
+			_, _ = s.ChannelMessageSend(m.ChannelID, strings.Join(a, ", "))
+		}
+
+if m.Content == "!chenrestart" {
+	// This kills the chen
+	err = discord.Close()
+	if err != nil {
+		log.WithFields(log.Fields{
+			"error": err,
+		}).Fatal("Failed to create discord websocket connection")
+		return
+	}
+
+	log.Info("Chen was restarted by command")
+}
+
+// If the message is "ping" reply with "Pong!"
+if m.Content == "!pingchen" {
+	_, _ = s.ChannelMessageSend(m.ChannelID, "Pong!")
+}
+
+// If the message is "pong" reply with "Ping!"
+if m.Content == "!pongchen" {
+	_, _ = s.ChannelMessageSend(m.ChannelID, "Ping!")
+}
+
 }
 
 func main() {
